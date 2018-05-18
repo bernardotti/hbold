@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Webslesson Tutorial | Search HTML Table Data by using JQuery</title>
+  <script src="js/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <script src="js/bootstrap.min.js"></script>
+      <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js" ></script>
+  <style>
+  #result {
+   position: absolute;
+   width: 100%;
+   max-width:870px;
+   cursor: pointer;
+   overflow-y: auto;
+   max-height: 400px;
+   box-sizing: border-box;
+   z-index: 1001;
+  }
+  .link-class:hover{
+   background-color:#f1f1f1;
+  }
+  </style>
+ </head>
+ <body>
+  <br /><br />
+  <div class="container" style="width:900px;">
+   <h2 align="center">JSON Live Data Search using Ajax JQuery</h2>
+   <h3 align="center">Employee Data</h3>   
+   <br /><br />
+   <div align="center">
+    <input type="text" name="search" id="search" placeholder="Search Employee Details" class="form-control" />
+   </div>
+   <ul class="list-group" id="result"></ul>
+   <br />
+  </div>
+ </body>
+</html>
+
+<script>
+$(document).ready(function(){
+ $.ajaxSetup({ cache: false });
+ $('#search').keyup(function(){
+  $('#result').html('');
+  //$('#state').val('');
+  var searchField = $('#search').val();
+  var expression = new RegExp(searchField, "i");
+  $.getJSON('http://127.0.0.1:8891/lodex2/index', function(data) {
+   $.each(data, function(key, value){
+    if (value.name.search(expression) != -1 || value.triples.search(expression) != -1)
+    {
+     $('#result').append('<li class="list-group-item link-class"><img src="https://www.google.it/search?q=imagini&tbm=isch&source=iu&ictx=1&fir=uQG1L87S4DgjxM%253A%252CUYuMjstDW2tMLM%252C_&usg=__3wWtfMd3bGz3JMyFgob-oTsHJtk%3D&sa=X&ved=0ahUKEwj_hr_U9IrbAhWDesAKHW_lA-8Q9QEIOzAB#imgrc=uQG1L87S4DgjxM:" height="40" width="40" class="img-thumbnail" /> '+value.name+' | <span class="text-muted">'+value.triples+'</span></li>');
+//        $('#result').append('<li class="list-group-item link-class"><tr><td>'+value.name+'</tr></td></li>');
+    }
+   });   
+  });
+ });
+ 
+/* $('#result').on('click', 'li', function() {
+  var click_text = $(this).text().split('|');
+  $('#search').val($.trim(click_text[0]));
+  $("#result").html('');
+ });*/
+});
+</script>

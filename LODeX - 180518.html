@@ -1,0 +1,302 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fogli di stile -->
+    <!-- <link rel="stylesheet"  type="text/css" href="css/bootstrap.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/search-box.css">
+
+    <!-- questi tre modificano la pagina -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+</head>
+
+<style>
+    body {
+        margin-top: 66px;
+        /*per evitare che il contenuto della pagina finisca sotto la navbar*/
+        padding: 0px;
+    }
+
+    /* STILE BARRA ALTO */
+
+    .navbar-brand {
+        display: inline-block;
+        padding-top: .3125rem;
+        padding-bottom: .3125rem;
+        margin-right: 8rem;
+        margin-left: 5rem;
+        font-size: 2rem;
+        height: 50px;
+        line-height: 35px;
+        white-space: nowrap;
+    }
+</style>
+
+<body>
+
+    <!-- Barra Iniziale -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <ul class="nav navbar-nav" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="navbar-brand nav-link active" id="dataset-tab" data-toggle="tab" href="#dataset" role="tab" aria-controls="home"
+                        aria-selected="true">LODeX
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand nav-link" id="graph-tab" data-toggle="tab" href="#graph" role="tab" aria-controls="profile" aria-selected="false">Graph View</a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand nav-link" id="query-tab" data-toggle="tab" href="#query" role="tab" aria-controls="contact" aria-selected="false">Query Panel</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="dataset" role="tabpanel" aria-labelledby="dataset-tab">
+
+            <table class="table table-hover" id="myTable">
+                <thead>
+                    <tr class="tr-fixed">
+                        <th>
+                            <a>Dataset Name</a>
+
+
+                            <!--
+<div class="search-container">
+
+<form action="#dataset" method="get">
+<input type="text" placeholder="Search.." id="search">
+<button type="submit"><i class="fa fa-search"></i></button>
+</form>
+
+</div>
+
+-->
+
+                            <div class="search-box-wrapper">
+                                <input type="text" placeholder="Search..." class="search-box-input">
+                                <button class="search-box-button">&#128269;</button>
+                            </div>
+
+                            <a onclick="sortTable(0)">
+                                    <span class="glyphicon glyphicon-sort-by-alphabet"></span>
+                                  </a>
+                            <a onclick="sortTable(0)">
+                                    <span class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                            </a>
+                        </th>
+
+
+
+                        <th> <a>Triples</a>
+                            <a href="#">
+                                    <span class="glyphicon glyphicon-sort-by-order"></span>
+                                  </a>
+                            <a href="#">
+                                    <span class="glyphicon glyphicon-sort-by-order-alt"></span>
+                                </a>
+                        </th>
+
+                        <th> <a>Class Number</a>
+                            <a href="#">
+                                    <span class="glyphicon glyphicon-sort-by-order"></span>
+                                  </a>
+                            <a href="#">
+                                    <span class="glyphicon glyphicon-sort-by-order-alt"></span>
+                                </a>
+                        </th>
+
+                        <th> <a>Properties Number</a>
+                            <a href="#">
+                                    <span class="glyphicon glyphicon-sort-by-order"></span>
+                                  </a>
+                            <a href="#">
+                                    <span class="glyphicon glyphicon-sort-by-order-alt"></span>
+                                </a>
+                        </th>
+
+                        <th> <a>Instance Number</a>
+                            <a href="#">
+                                    <span class="glyphicon glyphicon-sort-by-order"></span>
+                                  </a>
+                            <a href="#">
+                                    <span class="glyphicon glyphicon-sort-by-order-alt"></span>
+                                </a>
+                        </th>
+
+                        <th>Azioni</th>
+
+                    </tr>
+                </thead>
+                <tbody id="dataset-elements">
+
+                </tbody>
+            </table>
+
+        </div>
+        <div class="tab-pane fade" id="graph" role="tabpanel" aria-labelledby="graph-tab">d</div>
+        <div class="tab-pane fade" id="query" role="tabpanel" aria-labelledby="query-tab">...</div>
+    </div>
+
+    <script id="template-dataset-elements" type="text/template7">
+            {{#each data}}
+            <tr>
+                <td> {{name}} </td>
+                <td> {{triples}} </td>
+                <td> {{classesCount}} </td>
+                <td> {{propCount}} </td>
+                <td> {{instances}} </td>
+                <td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="ssbtn btn btn-success" data-id="{{ id }}">SS</button>
+                        <button type="button" class="csbtn btn btn-danger" data-id="{{ id }}">CS</button>
+            </div>
+            </td>
+            </td>
+            </tr>
+            {{/each}}
+        </script>
+
+    <!-- jQuery e plugin JavaScript  -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/template7.min.js"></script>
+
+    <script>
+        $.ajax({
+            type: 'GET',
+            url: './index',
+            dataType: 'json',
+            success: function (data) {
+
+                var template = $('#template-dataset-elements').html();
+                var compiledTemplate = Template7.compile(template);
+                $('#dataset-elements').html(compiledTemplate(data));
+
+
+
+
+                $('#dataset-elements .ssbtn').click(function () {
+
+                    var ssid = $(this).data("id");
+                    $('#myTab a[href="#graph"]').tab('show');
+                    $.ajax({
+                        type: 'GET',
+                        url: './getDataSS/' + ssid,
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    });
+
+                });
+
+
+
+
+                $('#dataset-elements .csbtn').click(function () {
+
+                    var csid = $(this).data("id");
+                    $('#myTab a[href="#graph"]').tab('show');
+                    $.ajax({
+                        type: 'GET',
+                        url: './getDataCS/' + csid,
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    });
+
+                });
+
+
+
+
+            }
+        });
+    </script>
+
+
+    <script>
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("myTable");
+            switching = true;
+            //Set the sorting direction to ascending:
+            dir = "asc";
+            /*Make a loop that will continue until
+            no switching has been done:*/
+            while (switching) {
+                //start by saying: no switching is done:
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                /*Loop through all table rows (except the
+                first, which contains table headers):*/
+                for (i = 1; i < (rows.length - 1); i++) {
+                    //start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /*check if the two rows should switch place,
+                    based on the direction, asc or desc:*/
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    /*If a switch has been marked, make the switch
+                    and mark that a switch has been done:*/
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    //Each time a switch is done, increase this count by 1:
+                    switchcount++;
+                } else {
+                    /*If no switching has been done AND the direction is "asc",
+                    set the direction to "desc" and run the while loop again.*/
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    </script>
+
+
+
+
+    <!--http://www.terrill.ca/sorting/-->
+
+
+
+
+</body>
+
+</html>
